@@ -15,9 +15,6 @@ public class RegistrationRequest {
     @NotBlank(message = "Le prenom est requis")
     @Email(message = "Le mail n'est pas bien formaté")
     private String email;
-    @NotEmpty(message = "Le numéro de téléphone est requis")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Le numéro de téléphone doit être valide (ex : +1234567890)")
-    private String phone;
     @NotEmpty(message = "Le Mot de pass est requis")
     @NotBlank(message = "Le Mot de pass est requis")
     @Size(min = 8, message = "Le mail doit avoir au moins 8 caractère au minimum")

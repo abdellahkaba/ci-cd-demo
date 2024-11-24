@@ -1,6 +1,7 @@
 package com.isi.task.auth;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication")
 public class AuthenticationController {
     private final AuthenticationService service;
     @PostMapping("/register")
@@ -21,7 +23,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody @Valid RegistrationRequest request
     ){
-        service.register(request);
         return ResponseEntity.ok(service.register(request));
     }
     @PostMapping("/login")

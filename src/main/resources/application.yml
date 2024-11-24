@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/task?createDatabaseIfNotExist=true
+    url: jdbc:postgresql://localhost:5432/task
     username: username
     password: password
     driver-class-name: org.postgresql.Driver
@@ -22,5 +22,10 @@ application:
       refresh-token:
         expiration: 604800000 # 7 days
 
+springdoc:
+  default-produces-media-type: application/json
+
 server:
   port: 8084
+  servlet:
+    context-path: /api/v1/

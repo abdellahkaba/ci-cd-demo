@@ -46,7 +46,6 @@ public class AuthenticationService {
                 .enable(true)
                 .roles(List.of(userRole))
                 .build();
-        userRepository.save(user);
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
