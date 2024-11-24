@@ -2,7 +2,9 @@ package com.isi.task.handler;
 
 import com.isi.task.exception.EmailConflictException;
 import com.isi.task.exception.OperationNotPermittedException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -74,6 +76,32 @@ public class GlobalExceptionHandler {
                         ExceptionResponse.builder()
                                 .businessErrorDescription("Erreur interne, veuillez contacter l'administrateur")
                                 .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleEntityNotFoundException(EntityNotFoundException exp) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.ENTITY_NOT_FOUND.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.ENTITY_NOT_FOUND.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription())
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ExceptionResponse> handleAccessDeniedException(AccessDeniedException ex) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.UNAUTHORIZED_ACCESS.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.UNAUTHORIZED_ACCESS.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.UNAUTHORIZED_ACCESS.getDescription())
+                                .error(ex.getMessage())
                                 .build()
                 );
     }

@@ -12,6 +12,8 @@ public enum BusinessErrorCodes {
     NEW_PASSWORD_DOES_NOT_MATCH(301, BAD_REQUEST, "Le nouveau mot de passe ne correspond pas"),
     BAD_CREDENTIALS(304, FORBIDDEN, "Le login et/ou le mot de passe sont incorrects"),
     DUPLICATE_EMAIL(409, HttpStatus.CONFLICT, "Email déjà utilisé"),
+    ENTITY_NOT_FOUND(404, HttpStatus.NOT_FOUND, "Entité non trouvée"),
+    UNAUTHORIZED_ACCESS(403, HttpStatus.FORBIDDEN, "Accès non autorisé");
     ;
     private final int code;
     private final String description;
