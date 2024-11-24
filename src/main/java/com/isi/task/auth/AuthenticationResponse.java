@@ -1,5 +1,6 @@
 package com.isi.task.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,5 +8,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AuthenticationResponse {
-    private String token ;
+    @JsonProperty("token")
+    private String token;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 }

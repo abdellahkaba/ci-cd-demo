@@ -23,6 +23,11 @@ public class Token {
     private LocalDateTime expiresAt;
     private LocalDateTime validateAt;
 
+    private boolean expired;
+    private boolean revoked;
+    @Enumerated(EnumType.STRING)
+    public TokenType tokenType = TokenType.BEARER;
+
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
