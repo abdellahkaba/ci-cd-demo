@@ -1,5 +1,7 @@
 package com.isi.task.auth;
 
+import com.isi.task.exception.EmailConflictException;
+import com.isi.task.handler.BusinessErrorCodes;
 import com.isi.task.role.RoleRepository;
 import com.isi.task.security.JwtService;
 import com.isi.task.user.User;
@@ -22,10 +24,13 @@ public class AuthenticationService {
     public void register(RegistrationRequest request) {
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new IllegalStateException("ROLE USER n'a pas été initialisé"));
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new EmailConflictException(BusinessErrorCodes.DUPLICATE_EMAIL.getDescription());
+        }
         var user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .phone(request.getPhone())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enable(true)
