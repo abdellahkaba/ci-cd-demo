@@ -8,14 +8,24 @@ services:
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: task
     volumes:
-      - postgres:/data/postgres
+      - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
-      - spring-booking
+      - spring-task
     restart: unless-stopped
+
+  task-api:
+    container_name: task-api
+    image: task:1.0.0
+    ports:
+      - 8084:8084
+    networks:
+      - spring-task
+    depends_on:
+      - postgres
 networks:
-  spring-booking:
+  spring-task:
     driver: bridge
 volumes:
   postgres:
