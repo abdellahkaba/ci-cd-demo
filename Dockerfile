@@ -24,6 +24,7 @@ ENV DB_URL=jdbc:postgresql://postgres-task:5432/task
 ENV ACTIVE_PROFILE=${PROFILE}
 ENV JAR_VERSION=${APP_VERSION}
 
-CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${DB_URL} task-${JAR_VERSION}.jar
+CMD ["java", "-jar", "-Dspring.profiles.active=${ACTIVE_PROFILE}", "-Dspring.datasource.url=${DB_URL}", "task-${JAR_VERSION}.jar"]
+
 
 
